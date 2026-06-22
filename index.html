@@ -993,15 +993,29 @@
 
             console.log("Đơn hàng mới:", orderData);
 
-            /* === CHÈN CODE BẮN DATA VỀ TELEGRAM/SHEETS VÀO ĐÂY === */
+            /* === CODE BẮN DATA VỀ TELEGRAM/SHEETS === */
+            const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbym6grm6_Y32c7QYjVimmv9Wbc39QDITQARDetcPpeTUDm-OV4X34-bTfhzXdZkTKL9-g/exec";
 
-            setTimeout(() => {
-                alert('Đặt hàng thành công! Shop sẽ liên hệ xác nhận đơn.');
-                submitBtn.innerText = 'Mua ngay';
-                submitBtn.disabled = false;
-                form.reset();
-                closeModal();
-            }, 1500);
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                body: JSON.stringify(orderData),
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8" // Tránh lỗi bảo mật CORS
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert('🎉 Đặt hàng thành công! Kim Thành Telecom sẽ sớm liên hệ xác nhận đơn.');
+                    submitBtn.innerText = 'Mua ngay';
+                    submitBtn.disabled = false;
+                    form.reset();
+                    closeModal();
+                })
+                .catch(error => {
+                    alert('Có lỗi xảy ra, vui lòng kiểm tra lại mạng hoặc thử lại sau!');
+                    submitBtn.innerText = 'Mua ngay';
+                    submitBtn.disabled = false;
+                });
         }
     </script>
 
