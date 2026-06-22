@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SIM 5G Vinaphone U1500/FCLUB - Kim Thành - SIM THẺ GIÁ RẺ</title>
+    <style>
+        /* === RESET & CƠ BẢN === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #222;
+        }
+
+        .app-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        /* === HEADER NỔI TRÊN ẢNH === */
+        .top-nav {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .nav-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            pointer-events: auto;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* === SLIDER ẢNH (TỐI ƯU VUỐT/KÉO) === */
+        .image-slider-container {
+            position: relative;
+            background: #fff;
+            cursor: grab;
+        }
+
+        .image-slider-container:active {
+            cursor: grabbing;
+        }
+
+        .image-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .image-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .image-slider img {
+            flex: 0 0 100%;
+            width: 100%;
+            object-fit: cover;
+            scroll-snap-align: start;
+            aspect-ratio: 1/1;
+            pointer-events: none;
+            /* Chống lỗi kéo ảnh của trình duyệt */
+        }
+
+        .image-counter {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #333;
+        }
+
+        /* === THÔNG TIN GIÁ & TIÊU ĐỀ === */
+        .product-header {
+            background: #fff;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .current-price {
+            color: #ee4d2d;
+            font-size: 20px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .original-price {
+            color: #929292;
+            font-size: 14px;
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .discount-badge {
+            background: #fcebeb;
+            color: #ee4d2d;
+            font-size: 10px;
+            padding: 2px 4px;
+            font-weight: bold;
+            border-radius: 2px;
+        }
+
+        .product-title {
+            font-size: 15px;
+            line-height: 1.4;
+            color: #222;
+            margin-bottom: 15px;
+        }
+
+        .heart-icon {
+            float: right;
+            color: #999;
+            font-size: 20px;
+            margin-top: -30px;
+        }
+
+        /* === THÔNG TIN SHOP === */
+        .shop-section {
+            background: #fff;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .shop-info-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .shop-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid #eee;
+        }
+
+        .shop-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #222;
+        }
+
+        .shop-status {
+            font-size: 12px;
+            color: #757575;
+            margin-top: 2px;
+        }
+
+        .btn-view-shop {
+            border: 1px solid #ee4d2d;
+            color: #ee4d2d;
+            background: #fff;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-size: 12px;
+        }
+
+        .shop-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #757575;
+            padding-top: 8px;
+            border-top: 1px solid #f5f5f5;
+            margin-top: 8px;
+        }
+
+        .shop-stats span {
+            color: #ee4d2d;
+        }
+
+        /* === MÔ TẢ SẢN PHẨM === */
+        .desc-section {
+            background: #fff;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+
+        .desc-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f5f5f5;
+            padding-bottom: 10px;
+        }
+
+        .desc-header span:first-child {
+            font-weight: 500;
+        }
+
+        .desc-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* === BOTTOM BAR === */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            max-width: 480px;
+            width: 100%;
+            height: 50px;
+            background: #fff;
+            display: flex;
+            border-top: 1px solid #e8e8e8;
+            z-index: 100;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .btn-bottom {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .bg-teal {
+            background-color: #00bfa5;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .bg-orange {
+            background-color: #ee4d2d;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* === MODAL MUA HÀNG === */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .buy-modal {
+            position: fixed;
+            bottom: -100%;
+            max-width: 480px;
+            width: 100%;
+            background: #fff;
+            z-index: 1000;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 12px 12px 0 0;
+            transition: bottom 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh;
+        }
+
+        .modal-header {
+            padding: 15px;
+            border-bottom: 1px solid #ebebeb;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .modal-thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 2px;
+            border: 1px solid #eee;
+        }
+
+        .modal-price-info {
+            flex: 1;
+        }
+
+        .modal-price-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .modal-price {
+            color: #ee4d2d;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .modal-original-price {
+            color: #929292;
+            font-size: 14px;
+            text-decoration: line-through;
+        }
+
+        .modal-stock {
+            color: #757575;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .btn-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #999;
+            background: none;
+            border: none;
+        }
+
+        .modal-body {
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 14px;
+            color: #222;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .variants {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .variant-btn {
+            padding: 6px 12px;
+            border: 1px solid #f5f5f5;
+            background: #f5f5f5;
+            border-radius: 2px;
+            font-size: 13px;
+            color: #222;
+            cursor: pointer;
+        }
+
+        .variant-btn.active {
+            border-color: #ee4d2d;
+            color: #ee4d2d;
+            background: #fff;
+            position: relative;
+        }
+
+        .variant-btn.active::after {
+            content: '✓';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #ee4d2d;
+            color: #fff;
+            font-size: 8px;
+            padding: 1px 3px;
+            border-radius: 2px 0 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            font-size: 14px;
+            background: #fafafa;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #ee4d2d;
+            background: #fff;
+        }
+
+        .modal-footer {
+            padding: 10px 15px;
+            border-top: 1px solid #ebebeb;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            background: #ee4d2d;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* === CÓ THỂ BẠN CŨNG THÍCH === */
+        .related-section {
+            padding: 15px;
+            margin-bottom: 60px;
+            /* Chừa chỗ cho Bottom Bar */
+            background-color: #f5f5f5;
+        }
+
+        .related-header {
+            font-size: 14px;
+            font-weight: 500;
+            color: #757575;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: #fff;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            /* Tạo tỷ lệ vuông 1:1 */
+            background-color: #eee;
+        }
+
+        .product-image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Mũi tên Video (Góc phải dưới ảnh) */
+        .play-icon {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .play-icon::after {
+            content: '';
+            display: block;
+            border-style: solid;
+            border-width: 6px 0 6px 8px;
+            border-color: transparent transparent transparent white;
+            margin-left: 2px;
+        }
+
+        /* Badge giảm giá (Góc trái dưới ảnh) */
+        .voucher-badge {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            max-width: 100%;
+        }
+
+        .voucher-badge img {
+            width: auto;
+            height: 22px;
+            display: block;
+            object-fit: contain;
+            position: static;
+        }
+
+        /* Đè lại thuộc tính absolute của thẻ img cha */
+
+        /* Thông tin chữ */
+        .product-info-box {
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        /* Tiêu đề cắt 2 dòng */
+        .product-name {
+            font-size: 12px;
+            color: #222;
+            line-height: 1.4;
+            height: calc(12px * 1.4 * 2);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin-bottom: 15px;
+        }
+
+        /* Hàng chứa giá và số lượng bán */
+        .price-sold-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-price {
+            color: #ee4d2d;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .card-price::before {
+            content: '₫';
+            font-size: 12px;
+            margin-right: 1px;
+        }
+
+        .card-sold {
+            font-size: 10px;
+            color: #757575;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <div class="top-nav">
+            <div class="nav-icon">←</div>
+            <div class="nav-right">
+                <div class="nav-icon">🛒</div>
+                <div class="nav-icon">⋮</div>
+            </div>
+        </div>
+
+        <div class="image-slider-container">
+            <div class="image-slider" id="slider">
+                <img src="anh1.jpeg"
+                    onerror="this.src='https://via.placeholder.com/480/0078d4/ffffff?text=U1500+500GB'">
+                <img src="anh2.jpeg" onerror="this.src='https://via.placeholder.com/480/eeeeee/999999?text=Anh+2'">
+                <img src="anh3.jpeg" onerror="this.src='https://via.placeholder.com/480/eeeeee/999999?text=Anh+3'">
+                <img src="anh4.jpeg" onerror="this.src='https://via.placeholder.com/480/eeeeee/999999?text=Anh+4'">
+                <img src="anh5.jpeg" onerror="this.src='https://via.placeholder.com/480/eeeeee/999999?text=Anh+5'">
+                <img src="anh6.jpeg" onerror="this.src='https://via.placeholder.com/480/eeeeee/999999?text=Anh+6'">
+                <img src="anh7.jpeg" onerror="this.src='https://via.placeholder.com/480/eeeeee/999999?text=Anh+7'">
+            </div>
+            <div class="image-counter" id="imageCounter">1/1</div>
+        </div>
+
+        <div class="product-header">
+            <div class="price-row">
+                <span class="current-price">750.000₫ - 850.000₫</span>
+                <span class="original-price">900.000₫ - 1.500.000₫</span>
+                <span class="discount-badge">-16%</span>
+            </div>
+            <div class="heart-icon">♡</div>
+            <div class="product-title">SIM 5G Vinaphone U1500/FCLUB Miễn Phí 12 Tháng – Không Cần Nạp Tiền – Bảo Hành 1
+                Năm</div>
+        </div>
+
+        <div class="shop-section">
+            <div>
+                <div class="shop-info-left">
+                    <div class="shop-avatar"
+                        style="display: flex; justify-content: center; align-items: center; background-color: #f0f0f0; color: #ee4d2d; font-weight: bold; font-size: 18px; flex-shrink: 0;">
+                        KT
+                    </div>
+                    <div>
+                        <div class="shop-name">Kim Thành - SIM THẺ GIÁ RẺ</div>
+                        <div class="shop-status">Online 2 phút trước<br>📍 Thành phố Hà Nội</div>
+                    </div>
+                </div>
+                <div class="shop-stats">
+                    <div><span>139</span> Sản phẩm</div>
+                    <div><span>4.7</span> Đánh giá</div>
+                    <div><span>89%</span> Phản hồi Chat</div>
+                </div>
+            </div>
+            <button class="btn-view-shop">Xem Shop</button>
+        </div>
+
+        <div class="desc-section">
+            <div class="desc-header">
+                <span>Chi tiết sản phẩm</span>
+                <span style="color: #757575;">Thương hiệu,Loại sim ></span>
+            </div>
+            <div class="desc-content">Mô tả sản phẩm
+                SIM 5G VINAPHONE MIỄN PHÍ 12 THÁNG | GÓI U1500 500GB/THÁNG - 12FCLUB 3GB/NGÀY + GỌI THẢ GA | KHÔNG CẦN
+                NẠP TIỀN | BẢO HÀNH 12 THÁNG
+
+                ✨ KIM THÀNH - SIM THẺ GIÁ RẺ chuyên cung cấp SIM5G Vinaphone chính hãng với giá tốt, hỗ trợ khách hàng
+                tận tình trước và sau khi mua hàng.
+
+                🌟 CAM KẾT TỪ SHOP
+                ✔️ SIM Vinaphone chính hãng 100%
+                ✔️ Giao đúng gói cước như mô tả
+                ✔️ Hỗ trợ kích hoạt và sử dụng tận tình
+                ✔️ Bảo hành 12 tháng theo chính sách của nhà mạng
+                ✔️ Hỗ trợ đổi mới nếu SIM lỗi do nhà sản xuất
+                ✔️ SIM tuân thủ đầy đủ quy định đăng ký thông tin thuê bao của Bộ TT&TT
+
+                🔥 LOẠI 1: SIM 5G VINAPHONE U1500 - DATA KHỦNG 500GB/THÁNG
+                ✅ Miễn phí sử dụng 12 tháng, không cần nạp tiền
+                ✅ 500GB/tháng x 12 tháng (Tổng 6000GB)
+                ✅ Không chia dung lượng theo ngày, dùng rất tiện lợi
+                ✅ Truy cập Internet tốc độ cao ổn định
+                ✅ Phù hợp xem Youtube, TikTok, Facebook, làm việc và học tập
+                ❌ Không hỗ trợ nghe gọi và nhắn tin
+
+                🔥 LOẠI 2: SIM 5G VINAPHONE 12FCLUB - DATA + NGHE GỌI
+                ✅ Miễn phí sử dụng 12 tháng, không cần nạp tiền
+                ✅ 3GB tốc độ cao mỗi ngày
+                ✅ Miễn phí 1.500 phút gọi nội mạng/tháng
+                ✅ Miễn phí 60 phút gọi ngoại mạng/tháng
+                ✅ Sử dụng nghe gọi và truy cập Internet tiện lợi
+                ✅ Phù hợp cho điện thoại smartphone sử dụng hằng ngày
+
+                📌 LƯU Ý
+                SIM được kích hoạt sẵn theo chính sách của nhà mạng.
+                Thời gian sử dụng ưu đãi lên tới 12 tháng.
+                Khách hàng nên đăng ký chính chủ để đảm bảo quyền lợi khi sử dụng lâu dài.
+                Tùy từng thời điểm, hình thức đóng gói SIM có thể thay đổi nhưng không ảnh hưởng đến chất lượng và gói
+                cước.
+
+                🎁 QUYỀN LỢI KHI MUA TẠI SHOP
+                ⭐ Giao hàng nhanh toàn quốc
+                ⭐ Đóng gói cẩn thận
+                ⭐ Hỗ trợ khách hàng nhiệt tình 24/7
+
+                #simvinaphone #sim4gvinaphone #simdata #sim1nam #simu1500 #sim500gb #simfclub #sim3gbngay #simnghegoi
+            </div>
+        </div>
+
+
+        <div class="related-section">
+            <div class="related-header">CÓ THỂ BẠN CŨNG THÍCH</div>
+            <div class="product-grid">
+
+                <a href="#" class="product-card">
+                    <div class="product-image-wrapper">
+                        <img src="anh_sp_1.jpg"
+                            onerror="this.src='https://via.placeholder.com/200/cccccc/ffffff?text=San+Pham'">
+
+                        <div class="play-icon"></div>
+
+                        <div class="voucher-badge">
+                            <img src="https://i.imgur.com/uR2A7y6.png" alt="Voucher Xtra"
+                                onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                    <div class="product-info-box">
+                        <div class="product-name">SIM MẠNG GẮN Ô TÔ SIÊU TIỆN LỢI, TIẾT KIỆM GIÁ CHỈ TỪ 2 TRIỆU</div>
+                        <div class="price-sold-row">
+                            <div class="card-price">38.600</div>
+                            <div class="card-sold">Đã bán 10k+</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="product-card">
+                    <div class="product-image-wrapper">
+                        <img src="anh_sp_2.jpeg"
+                            onerror="this.src='https://via.placeholder.com/200/cccccc/ffffff?text=San+Pham'">
+
+                        <div class="voucher-badge">
+                            <img src="https://i.imgur.com/pZzZQQo.png" alt="Rẻ vô địch"
+                                onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                    <div class="product-info-box">
+                        <div class="product-name">CỤC PHÁT WIFI DÀNH CHO NGƯỜI DÙNG DI ĐỘNG</div>
+                        <div class="price-sold-row">
+                            <div class="card-price">320.000</div>
+                            <div class="card-sold">Đã bán 7k+</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="product-card">
+                    <div class="product-image-wrapper">
+                        <img src="anh_sp_3.jpeg"
+                            onerror="this.src='https://via.placeholder.com/200/cccccc/ffffff?text=San+Pham'">
+                        <div class="play-icon"></div>
+                    </div>
+                    <div class="product-info-box">
+                        <div class="product-name">SIM VIETTEL DATA SIÊU KHỦNG</div>
+                        <div class="price-sold-row">
+                            <div class="card-price">99.000</div>
+                            <div class="card-sold">Đã bán 306</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="product-card">
+                    <div class="product-image-wrapper">
+                        <img src="anh_sp_4.jpeg"
+                            onerror="this.src='https://via.placeholder.com/200/cccccc/ffffff?text=San+Pham'">
+                    </div>
+                    <div class="product-info-box">
+                        <div class="product-name">SIM DATA KHÔNG GIỚI HẠN TỐC ĐỘ VÀO MẠNG CHỈ 3 TRIỆU</div>
+                        <div class="price-sold-row">
+                            <div class="card-price">116.920</div>
+                            <div class="card-sold">Đã bán 1k+</div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <button class="btn-bottom bg-teal" style="flex: 0.8;">
+                <span style="font-size: 16px; margin-bottom: 2px;">💬</span>
+                Chat ngay
+            </button>
+            <button class="btn-bottom bg-teal" style="flex: 1.2;">
+                <span style="font-size: 16px; margin-bottom: 2px;">🛒</span>
+                Thêm vào Giỏ hàng
+            </button>
+            <button class="btn-bottom bg-orange" style="flex: 2;" onclick="openModal()">
+                Mua ngay
+            </button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+    <div class="buy-modal" id="buyModal">
+        <button class="btn-close" onclick="closeModal()">×</button>
+
+        <div class="modal-header">
+            <img src="anh1.jpg" class="modal-thumb"
+                onerror="this.src='https://via.placeholder.com/80/0078d4/ffffff?text=SIM'">
+            <div class="modal-price-info">
+                <div class="modal-price-wrapper">
+                    <div class="modal-price" id="modalPrice">₫750.000 - ₫850.000</div>
+                    <div class="modal-original-price" id="modalOriginalPrice">₫900.000 - ₫1.500.000</div>
+                </div>
+                <div class="modal-stock">Kho: 9999</div>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <form id="orderForm">
+                <div class="section-title">Loại SIM</div>
+                <div class="variants">
+                    <div class="variant-btn" onclick="selectVariant(this, 'U1500 - Vật lý', '850.000', '1.500.000')">
+                        U1500
+                        - Vật lý</div>
+                    <div class="variant-btn" onclick="selectVariant(this, 'U1500 - eSIM', '900.000', '1.500.000')">U1500
+                        - eSIM</div>
+                    <div class="variant-btn" onclick="selectVariant(this, '12FCLUB - Vật lý', '750.000', '900.000')">
+                        12FCLUB - Vật lý</div>
+                    <div class="variant-btn" onclick="selectVariant(this, '12FCLUB - eSIM', '800.000', '900.000')">
+                        12FCLUB - eSIM</div>
+                </div>
+                <input type="hidden" id="selectedVariant" name="loai_sim" required>
+
+                <div class="section-title" style="margin-top: 10px;">Địa chỉ nhận hàng</div>
+                <div class="form-group">
+                    <input type="text" class="form-input" name="ho_ten" placeholder="Họ và tên" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" class="form-input" name="so_dien_thoai" placeholder="Số điện thoại" required
+                        pattern="[0-9]{10}">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-input" name="dia_chi"
+                        placeholder="Địa chỉ chi tiết (Tỉnh/Thành, Quận/Huyện, Số nhà...)" rows="2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-input" name="ghi_chu" placeholder="Lưu ý cho người bán...">
+                </div>
+
+                <div class="section-title" style="margin-top: 10px;">Phương thức thanh toán</div>
+                <div class="form-group"
+                    style="padding: 10px; border: 1px solid #ee4d2d; color: #ee4d2d; font-size: 13px; background: #fffaf9;">
+                    Thanh toán khi nhận hàng (COD) <span style="float: right;">✓</span>
+                    <input type="hidden" name="thanh_toan" value="COD">
+                </div>
+                <div class="section-title" style="margin-top: 15px;">Chi tiết thanh toán</div>
+                <div
+                    style="background: #fafafa; padding: 12px; border-radius: 4px; border: 1px dashed #e0e0e0; margin-bottom: 10px;">
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: 13px; color: #555; margin-bottom: 8px;">
+                        <span>Sản phẩm</span>
+                        <span id="summaryVariantName"
+                            style="font-weight: 500; color: #333; text-align: right; max-width: 60%;">Chưa chọn loại
+                            SIM</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: 13px; color: #555; margin-bottom: 8px;">
+                        <span>Tổng tiền hàng</span>
+                        <span id="summarySubtotal">₫0</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: 13px; color: #00bfa5; margin-bottom: 8px;">
+                        <span>Phí vận chuyển</span>
+                        <span>Miễn phí (Freeship)</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #ebebeb; padding-top: 8px; margin-top: 4px;">
+                        <span style="font-size: 14px; font-weight: 500;">Tổng thanh toán</span>
+                        <span id="summaryTotal" style="color: #ee4d2d; font-size: 18px; font-weight: bold;">₫0</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn-confirm" onclick="submitOrder()">Mua ngay</button>
+        </div>
+    </div>
+
+    <script>
+        /* ====================================================
+           XỬ LÝ VUỐT/KÉO ẢNH & BỘ ĐẾM (MƯỢT CẢ PC LẪN MOBILE)
+           ==================================================== */
+        const slider = document.getElementById('slider');
+        const counter = document.getElementById('imageCounter');
+        const images = slider.querySelectorAll('img');
+        const totalImages = images.length;
+
+        // Set bộ đếm ban đầu
+        counter.innerText = `1/${totalImages}`;
+
+        // Cập nhật số đếm khi cuộn
+        slider.addEventListener('scroll', () => {
+            let index = Math.round(slider.scrollLeft / slider.clientWidth) + 1;
+            if (index > totalImages) index = totalImages;
+            counter.innerText = `${index}/${totalImages}`;
+        });
+
+        // Thêm tính năng kéo bằng chuột (Drag) cho Desktop
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.style.scrollSnapType = 'none'; // Tạm tắt snap để kéo mượt hơn
+            slider.style.scrollBehavior = 'auto';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.style.scrollSnapType = 'x mandatory';
+            slider.style.scrollBehavior = 'smooth';
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.style.scrollSnapType = 'x mandatory';
+            slider.style.scrollBehavior = 'smooth';
+
+            // Tự động hít vào ảnh gần nhất sau khi thả chuột
+            let index = Math.round(slider.scrollLeft / slider.clientWidth);
+            slider.scrollTo({ left: index * slider.clientWidth, behavior: 'smooth' });
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 1.5; // Tốc độ kéo
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+
+        /* ====================================================
+           XỬ LÝ MODAL (POPUP FORM) & ĐẶT HÀNG
+           ==================================================== */
+        const overlay = document.getElementById('modalOverlay');
+        const modal = document.getElementById('buyModal');
+
+        function openModal() {
+            overlay.style.display = 'block';
+            modal.style.bottom = '0';
+            setTimeout(() => overlay.style.opacity = '1', 10);
+        }
+
+        function closeModal() {
+            modal.style.bottom = '-100%';
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.style.display = 'none', 300);
+        }
+
+        let currentPrice = "";
+        function selectVariant(element, variantName, price, originalPrice) {
+            document.querySelectorAll('.variant-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+
+            document.getElementById('selectedVariant').value = variantName;
+            currentPrice = price;
+
+            // Cập nhật giá sale
+            document.getElementById('modalPrice').innerText = '₫' + price;
+            // Cập nhật giá gốc gạch ngang
+            document.getElementById('modalOriginalPrice').innerText = '₫' + originalPrice;
+            document.getElementById('summarySubtotal').innerText = '₫' + price;
+            document.getElementById('summaryTotal').innerText = '₫' + price;
+            document.getElementById('summaryVariantName').innerText = variantName;
+        }
+
+        function submitOrder() {
+            const form = document.getElementById('orderForm');
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const formData = new FormData(form);
+            const orderData = Object.fromEntries(formData.entries());
+
+            if (!orderData.loai_sim) {
+                alert("Vui lòng chọn loại SIM!");
+                return;
+            }
+            orderData.gia_tien = currentPrice;
+
+            const submitBtn = document.querySelector('.btn-confirm');
+            submitBtn.innerText = 'Đang xử lý...';
+            submitBtn.disabled = true;
+
+            console.log("Đơn hàng mới:", orderData);
+
+            /* === CHÈN CODE BẮN DATA VỀ TELEGRAM/SHEETS VÀO ĐÂY === */
+
+            setTimeout(() => {
+                alert('Đặt hàng thành công! Shop sẽ liên hệ xác nhận đơn.');
+                submitBtn.innerText = 'Mua ngay';
+                submitBtn.disabled = false;
+                form.reset();
+                closeModal();
+            }, 1500);
+        }
+    </script>
+
+</body>
+
+</html>
