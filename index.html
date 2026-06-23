@@ -599,10 +599,105 @@
             font-weight: 500;
             cursor: pointer;
         }
+
+        /* === CSS CHO TRANG CẢM ƠN (MỚI THÊM) === */
+        .thankyou-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+            text-align: center;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            background: #00bfa5;
+            color: white;
+            font-size: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 191, 165, 0.3);
+        }
+
+        .thankyou-container h2 {
+            color: #222;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .thankyou-msg {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .order-summary-box {
+            width: 100%;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .order-summary-box h3 {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 8px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .summary-item span {
+            color: #757575;
+        }
+
+        .shipping-notice {
+            background: #fffaf9;
+            border: 1px solid #fcebeb;
+            color: #ee4d2d;
+            font-size: 13px;
+            padding: 12px;
+            border-radius: 6px;
+            line-height: 1.4;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .btn-back-home {
+            width: 100%;
+            background: #ee4d2d;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
+    <!-- TRANG BÁN HÀNG CHÍNH -->
     <div class="app-container">
         <div class="top-nav">
             <div class="nav-icon">←</div>
@@ -789,6 +884,7 @@
         </div>
     </div>
 
+    <!-- MODAL ĐIỀN THÔNG TIN -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
     <div class="buy-modal" id="buyModal">
         <button class="btn-close" onclick="closeModal()">×</button>
@@ -881,6 +977,31 @@
         </div>
     </div>
 
+    <!-- GIAO DIỆN TRANG CẢM ƠN (MỚI THÊM) -->
+    <div class="thankyou-container" id="thankyouPage">
+        <div class="success-icon">✓</div>
+        <h2>Đặt Hàng Thành Công!</h2>
+        <p class="thankyou-msg">Cảm ơn anh/chị <strong id="tyName" style="color: #222;"></strong> đã đặt sim tại Kim
+            Thành Telecom.</p>
+
+        <div class="order-summary-box">
+            <h3>Tóm tắt đơn hàng:</h3>
+            <div class="summary-item"><span>Sản phẩm:</span> <strong id="tyProduct"></strong></div>
+            <div class="summary-item"><span>Số điện thoại:</span> <strong id="tyPhone"></strong></div>
+            <div class="summary-item"><span>Tổng tiền COD:</span> <strong id="tyTotal"
+                    style="color: #ee4d2d; font-size: 15px;"></strong></div>
+            <div class="summary-item"><span>Vận chuyển:</span> <strong style="color: #00bfa5;">Miễn phí giao
+                    hàng</strong></div>
+        </div>
+
+        <div class="shipping-notice">
+            ⚠️ <strong>Lưu ý quan trọng:</strong> Nhân viên bên em sẽ gọi điện thoại xác nhận đơn hàng và địa chỉ giao
+            trong vòng 15-30 phút tới. Anh/chị vui lòng chú ý điện thoại để không bị lỡ sim nhé!
+        </div>
+
+        <button class="btn-back-home" onclick="location.reload()">Quay lại Trang chủ</button>
+    </div>
+
     <script>
         // --- 1. XỬ LÝ SLIDER ẢNH ---
         const slider = document.getElementById('slider');
@@ -948,7 +1069,7 @@
             document.getElementById('summaryVariantName').innerText = variantName;
         }
 
-        // --- 4. GỬI ĐƠN HÀNG LÊN GOOGLE SCRIPT ---
+        // --- 4. GỬI ĐƠN HÀNG LÊN GOOGLE SCRIPT & KHỞI CHẠY TRANG CẢM ƠN ---
         function submitOrder() {
             const form = document.getElementById('orderForm');
 
@@ -981,10 +1102,30 @@
                 }
             })
                 .then(() => {
-                    alert('🎉 Đặt hàng thành công! Kim Thành Telecom sẽ sớm liên hệ xác nhận đơn.');
+                    // ĐÃ CHỈNH SỬA: Tự động bắn sự kiện Chuyển đổi (CompletePayment) về TikTok Ads
+                    if (typeof ttq !== 'undefined') {
+                        ttq.track('CompletePayment', {
+                            content_name: orderData.loai_sim,
+                            value: parseFloat(currentPrice.replace(/\./g, '')) || 750000,
+                            currency: 'VND'
+                        });
+                    }
+
+                    // ĐÃ CHỈNH SỬA: Đổ dữ liệu động vào giao diện Trang cảm ơn
+                    document.getElementById('tyName').innerText = orderData.ho_ten;
+                    document.getElementById('tyProduct').innerText = orderData.loai_sim;
+                    document.getElementById('tyPhone').innerText = orderData.so_dien_thoai;
+                    document.getElementById('tyTotal').innerText = '₫' + currentPrice;
+
+                    // ĐÃ CHỈNH SỬA: Ẩn trang bán hàng chính cùng với Form và hiển thị Trang Cảm Ơn
+                    document.querySelector('.app-container').style.display = 'none';
+                    closeModal();
+                    document.getElementById('thankyouPage').style.display = 'flex';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                    // Trả các nút bấm và form về trạng thái ban đầu
                     submitBtn.innerText = 'Mua ngay';
                     submitBtn.disabled = false;
-
                     form.reset();
                     document.querySelectorAll('.variant-btn').forEach(btn => btn.classList.remove('active'));
                     document.getElementById('modalPrice').innerText = '₫750.000 - ₫850.000';
@@ -993,8 +1134,6 @@
                     document.getElementById('summaryVariantName').innerText = 'Chưa chọn loại SIM';
                     document.getElementById('summarySubtotal').innerText = '₫0';
                     document.getElementById('summaryTotal').innerText = '₫0';
-
-                    closeModal();
                 })
                 .catch(error => {
                     console.error(error);
