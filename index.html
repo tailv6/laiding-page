@@ -1104,7 +1104,7 @@
                 .then(() => {
                     // ĐÃ CHỈNH SỬA: Tự động bắn sự kiện Chuyển đổi (CompletePayment) về TikTok Ads
                     if (typeof ttq !== 'undefined') {
-                        ttq.track('CompletePayment', {
+                        ttq.track('Purchase', {
                             content_name: orderData.loai_sim,
                             value: parseFloat(currentPrice.replace(/\./g, '')) || 750000,
                             currency: 'VND'
