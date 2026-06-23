@@ -993,31 +993,6 @@
         </div>
     </div>
 
-    <!-- GIAO DIỆN TRANG CẢM ƠN (MỚI THÊM) -->
-    <div class="thankyou-container" id="thankyouPage">
-        <div class="success-icon">✓</div>
-        <h2>Đặt Hàng Thành Công!</h2>
-        <p class="thankyou-msg">Cảm ơn anh/chị <strong id="tyName" style="color: #222;"></strong> đã đặt sim tại Kim
-            Thành Telecom.</p>
-
-        <div class="order-summary-box">
-            <h3>Tóm tắt đơn hàng:</h3>
-            <div class="summary-item"><span>Sản phẩm:</span> <strong id="tyProduct"></strong></div>
-            <div class="summary-item"><span>Số điện thoại:</span> <strong id="tyPhone"></strong></div>
-            <div class="summary-item"><span>Tổng tiền COD:</span> <strong id="tyTotal"
-                    style="color: #ee4d2d; font-size: 15px;"></strong></div>
-            <div class="summary-item"><span>Vận chuyển:</span> <strong style="color: #00bfa5;">Miễn phí giao
-                    hàng</strong></div>
-        </div>
-
-        <div class="shipping-notice">
-            ⚠️ <strong>Lưu ý quan trọng:</strong> Nhân viên bên em sẽ gọi điện thoại xác nhận đơn hàng và địa chỉ giao
-            trong vòng 15-30 phút tới. Anh/chị vui lòng chú ý điện thoại để không bị lỡ sim nhé!
-        </div>
-
-        <button class="btn-back-home" onclick="location.reload()">Quay lại Trang chủ</button>
-    </div>
-
     <script>
         // --- 1. XỬ LÝ SLIDER ẢNH ---
         const slider = document.getElementById('slider');
@@ -1118,7 +1093,7 @@
                 }
             })
                 .then(() => {
-                    // ĐÃ CHỈNH SỬA: Tự động bắn sự kiện Chuyển đổi (CompletePayment) về TikTok Ads
+                    // 1. Vẫn giữ nguyên lệnh bắn sự kiện về TikTok Ads
                     if (typeof ttq !== 'undefined') {
                         ttq.track('Purchase', {
                             content_name: orderData.loai_sim,
@@ -1127,29 +1102,14 @@
                         });
                     }
 
-                    // ĐÃ CHỈNH SỬA: Đổ dữ liệu động vào giao diện Trang cảm ơn
-                    document.getElementById('tyName').innerText = orderData.ho_ten;
-                    document.getElementById('tyProduct').innerText = orderData.loai_sim;
-                    document.getElementById('tyPhone').innerText = orderData.so_dien_thoai;
-                    document.getElementById('tyTotal').innerText = '₫' + currentPrice;
+                    // 2. Mã hóa dữ liệu đơn hàng để đưa lên URL
+                    const tyName = encodeURIComponent(orderData.ho_ten);
+                    const tyProduct = encodeURIComponent(orderData.loai_sim);
+                    const tyPhone = encodeURIComponent(orderData.so_dien_thoai);
+                    const tyTotal = encodeURIComponent(currentPrice);
 
-                    // ĐÃ CHỈNH SỬA: Ẩn trang bán hàng chính cùng với Form và hiển thị Trang Cảm Ơn
-                    document.querySelector('.app-container').style.display = 'none';
-                    closeModal();
-                    document.getElementById('thankyouPage').style.display = 'flex';
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                    // Trả các nút bấm và form về trạng thái ban đầu
-                    submitBtn.innerText = 'Mua ngay';
-                    submitBtn.disabled = false;
-                    form.reset();
-                    document.querySelectorAll('.variant-btn').forEach(btn => btn.classList.remove('active'));
-                    document.getElementById('modalPrice').innerText = '₫750.000 - ₫850.000';
-                    document.getElementById('modalOriginalPrice').innerText = '₫900.000 - ₫1.500.000';
-                    document.getElementById('selectedVariant').value = "";
-                    document.getElementById('summaryVariantName').innerText = 'Chưa chọn loại SIM';
-                    document.getElementById('summarySubtotal').innerText = '₫0';
-                    document.getElementById('summaryTotal').innerText = '₫0';
+                    // 3. Chuyển hướng sang URL mới (trang thankyou.html) kèm theo dữ liệu
+                    window.location.href = `thankyou.html?name=${tyName}&product=${tyProduct}&phone=${tyPhone}&total=${tyTotal}`;
                 })
                 .catch(error => {
                     console.error(error);
